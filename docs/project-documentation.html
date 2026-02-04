@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Budget Planner - Project Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 25mm 20mm 25mm 20mm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12pt;
+      line-height: 1.6;
+      color: #1a1a1a;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .front-page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .front-page .university-logo {
+      width: 180px;
+      margin-bottom: 30px;
+    }
+
+    .front-page .university-name {
+      font-size: 16pt;
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 5px;
+    }
+
+    .front-page .university-name-pl {
+      font-size: 11pt;
+      color: #555;
+      margin-bottom: 60px;
+    }
+
+    .front-page .course-name {
+      font-size: 13pt;
+      color: #444;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .front-page .project-title {
+      font-size: 28pt;
+      font-weight: 700;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+
+    .front-page .project-subtitle {
+      font-size: 14pt;
+      color: #555;
+      margin-bottom: 80px;
+    }
+
+    .front-page .authors {
+      font-size: 13pt;
+      line-height: 2;
+      margin-bottom: 60px;
+    }
+
+    .front-page .authors strong {
+      color: #003366;
+    }
+
+    .front-page .date {
+      font-size: 12pt;
+      color: #777;
+    }
+
+    .toc h2 {
+      font-size: 22pt;
+      color: #003366;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 10px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .toc-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px dotted #ccc;
+      font-size: 13pt;
+    }
+
+    .toc-list li .toc-page {
+      color: #003366;
+      font-weight: 600;
+      min-width: 20px;
+      text-align: right;
+    }
+
+    .toc-list li.toc-sub {
+      padding-left: 25px;
+      font-size: 12pt;
+    }
+
+    h1 {
+      font-size: 22pt;
+      color: #003366;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #003366;
+    }
+
+    h2 {
+      font-size: 16pt;
+      color: #003366;
+      margin-top: 25px;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 13pt;
+      color: #004488;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 25px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 11pt;
+    }
+
+    th {
+      background-color: #003366;
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background-color: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 10.5pt;
+    }
+
+    .code-block {
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      padding: 15px 20px;
+      border-radius: 6px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 10pt;
+      line-height: 1.5;
+      margin: 15px 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .diagram {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      font-family: 'Consolas', monospace;
+      font-size: 10.5pt;
+      line-height: 1.8;
+      white-space: pre;
+    }
+
+    .section {
+      padding: 10px 0;
+    }
+
+    @media print {
+      .page-break {
+        page-break-before: always;
+      }
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- FRONT PAGE -->
+<div class="front-page">
+  <img
+    class="university-logo"
+    src="https://en.uitm.edu.eu/wp-content/uploads/sites/2/2021/01/cropped-logo-uitm-2.png"
+    alt="UITM Logo"
+    onerror="this.style.display='none'"
+  />
+
+  <div class="university-name">University of Information Technology and Management</div>
+  <div class="university-name-pl">Wyzsza Szkola Informatyki i Zarzadzania w Rzeszowie</div>
+
+  <div class="course-name">Programming Course</div>
+
+  <div class="project-title">Budget Planner</div>
+  <div class="project-subtitle">Home Budget Planning Application with Income &amp; Expense Tracking</div>
+
+  <div class="authors">
+    <strong>Authors:</strong><br>
+    Student Name 1<br>
+    Student Name 2<br>
+    Student Name 3
+  </div>
+
+  <div class="date">February 2026</div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="page-break toc">
+  <h2>Table of Contents</h2>
+  <ol class="toc-list">
+    <li><span>1. Introduction</span> <span class="toc-page">3</span></li>
+    <li class="toc-sub"><span>1.1 Project Overview</span> <span class="toc-page">3</span></li>
+    <li class="toc-sub"><span>1.2 Goals</span> <span class="toc-page">3</span></li>
+    <li><span>2. Technology Stack</span> <span class="toc-page">4</span></li>
+    <li class="toc-sub"><span>2.1 Frontend</span> <span class="toc-page">4</span></li>
+    <li class="toc-sub"><span>2.2 Backend</span> <span class="toc-page">4</span></li>
+    <li class="toc-sub"><span>2.3 Database</span> <span class="toc-page">5</span></li>
+    <li class="toc-sub"><span>2.4 DevOps</span> <span class="toc-page">5</span></li>
+    <li><span>3. Application Architecture</span> <span class="toc-page">6</span></li>
+    <li class="toc-sub"><span>3.1 Overall Structure</span> <span class="toc-page">6</span></li>
+    <li class="toc-sub"><span>3.2 Backend Modules</span> <span class="toc-page">6</span></li>
+    <li class="toc-sub"><span>3.3 Database Schema</span> <span class="toc-page">7</span></li>
+    <li class="toc-sub"><span>3.4 Authentication Flow</span> <span class="toc-page">7</span></li>
+    <li class="toc-sub"><span>3.5 Public API</span> <span class="toc-page">8</span></li>
+    <li><span>4. Application Description</span> <span class="toc-page">9</span></li>
+    <li class="toc-sub"><span>4.1 Main Features</span> <span class="toc-page">9</span></li>
+    <li class="toc-sub"><span>4.2 Admin Panel</span> <span class="toc-page">10</span></li>
+    <li class="toc-sub"><span>4.3 Multi-language Support</span> <span class="toc-page">10</span></li>
+    <li class="toc-sub"><span>4.4 Reports</span> <span class="toc-page">11</span></li>
+    <li><span>5. User Interface</span> <span class="toc-page">12</span></li>
+    <li class="toc-sub"><span>5.1 Design Approach</span> <span class="toc-page">12</span></li>
+    <li class="toc-sub"><span>5.2 Screen Descriptions</span> <span class="toc-page">12</span></li>
+    <li class="toc-sub"><span>5.3 Responsive Layout</span> <span class="toc-page">13</span></li>
+    <li><span>6. API Documentation</span> <span class="toc-page">14</span></li>
+    <li><span>7. Testing</span> <span class="toc-page">15</span></li>
+    <li><span>8. Summary</span> <span class="toc-page">16</span></li>
+  </ol>
+</div>
+
+<!-- 1. INTRODUCTION -->
+<div class="page-break section">
+  <h1>1. Introduction</h1>
+
+  <h2>1.1 Project Overview</h2>
+  <p>
+    Budget Planner is a web application for managing personal finances. The idea behind it is pretty straightforward: people need a convenient way to keep track of where their money goes. The app lets users log their income and expenses, sort them into categories, set monthly budgets, and see reports that break down their spending.
+  </p>
+  <p>
+    We built it as a three-layer SPA with a React frontend, NestJS backend, and PostgreSQL database. The app also has a separate public API so that other developers could potentially build their own tools on top of it.
+  </p>
+
+  <h2>1.2 Goals</h2>
+  <p>When we started working on the project, we outlined the following goals:</p>
+  <ul>
+    <li>Let users add, edit, and delete transactions (both income and expenses) with categories, dates, and descriptions.</li>
+    <li>Provide a way to set monthly budgets per category and show how much has been spent vs. the limit.</li>
+    <li>Generate reports (monthly breakdown by category, yearly trend) and allow exporting them as PDF or CSV.</li>
+    <li>Support two user roles &mdash; a regular user and an admin who can manage the platform.</li>
+    <li>Expose a public API with API key-based access for third-party integrations.</li>
+    <li>Support English and Polish with the ability to switch between them.</li>
+    <li>Make the UI work well on phones, tablets, and desktops.</li>
+  </ul>
+</div>
+
+<!-- 2. TECHNOLOGY STACK -->
+<div class="page-break section">
+  <h1>2. Technology Stack</h1>
+
+  <p>We went with TypeScript for both frontend and backend. Having the same language on both sides made things easier, especially when sharing type definitions and understanding each other's code. Below is the full breakdown of what we used.</p>
+
+  <h2>2.1 Frontend</h2>
+  <table>
+    <tr><th>Technology</th><th>Version</th><th>Why we picked it</th></tr>
+    <tr><td>React</td><td>19.2</td><td>Component-based UI, huge ecosystem, we all had some experience with it</td></tr>
+    <tr><td>TypeScript</td><td>5.7</td><td>Catches bugs at compile time, makes refactoring much safer</td></tr>
+    <tr><td>Vite</td><td>7.2</td><td>Fast dev server with hot reload, way faster than Webpack</td></tr>
+    <tr><td>React Router</td><td>7.x</td><td>Standard routing for SPAs</td></tr>
+    <tr><td>TanStack React Query</td><td>5.90</td><td>Handles data fetching, caching, and background refetching</td></tr>
+    <tr><td>Axios</td><td>1.13</td><td>HTTP client &mdash; we use interceptors for auto token refresh</td></tr>
+    <tr><td>Tailwind CSS</td><td>4.1</td><td>Utility classes, no need to write custom CSS files</td></tr>
+    <tr><td>Recharts</td><td>3.7</td><td>Charts for the dashboard and reports (pie, bar)</td></tr>
+    <tr><td>i18next</td><td>25.8</td><td>Handles translations and language detection</td></tr>
+    <tr><td>React Hot Toast</td><td>&mdash;</td><td>Simple toast notifications for success/error messages</td></tr>
+  </table>
+
+  <h2>2.2 Backend</h2>
+  <table>
+    <tr><th>Technology</th><th>Version</th><th>Why we picked it</th></tr>
+    <tr><td>NestJS</td><td>11.0</td><td>Opinionated structure with modules, built-in DI, good for larger apps</td></tr>
+    <tr><td>TypeScript</td><td>5.7</td><td>Same language as frontend</td></tr>
+    <tr><td>Prisma ORM</td><td>7.3</td><td>Type-safe database queries, auto-generated client, easy migrations</td></tr>
+    <tr><td>Passport.js (JWT)</td><td>&mdash;</td><td>Handles JWT token validation</td></tr>
+    <tr><td>bcrypt</td><td>&mdash;</td><td>Password hashing</td></tr>
+    <tr><td>class-validator</td><td>&mdash;</td><td>DTO validation using decorators</td></tr>
+    <tr><td>@nestjs/swagger</td><td>&mdash;</td><td>Auto-generates Swagger docs from decorators</td></tr>
+    <tr><td>@nestjs/throttler</td><td>&mdash;</td><td>Rate limiting to prevent abuse</td></tr>
+    <tr><td>PDFKit / json2csv</td><td>&mdash;</td><td>Server-side PDF and CSV generation for reports</td></tr>
+  </table>
+
+  <h2>2.3 Database</h2>
+  <table>
+    <tr><th>Technology</th><th>Version</th><th>Why we picked it</th></tr>
+    <tr><td>PostgreSQL</td><td>16 (Alpine)</td><td>Reliable, handles aggregation queries well (SUM, GROUP BY for reports)</td></tr>
+    <tr><td>Prisma Migrate</td><td>&mdash;</td><td>Version-controlled schema changes</td></tr>
+  </table>
+  <p>
+    We considered MySQL and SQLite, but PostgreSQL seemed like the better fit since we needed aggregation queries for financial reports. Also, Prisma works really well with Postgres out of the box.
+  </p>
+
+  <h2>2.4 DevOps</h2>
+  <table>
+    <tr><th>Technology</th><th>What it does</th></tr>
+    <tr><td>Docker Compose</td><td>Runs PostgreSQL in a container so we don't need to install it locally</td></tr>
+    <tr><td>Jest</td><td>Unit tests for the backend services</td></tr>
+    <tr><td>ESLint + Prettier</td><td>Keeps the code style consistent across the team</td></tr>
+    <tr><td>GitHub</td><td>Code hosting and collaboration</td></tr>
+  </table>
+</div>
+
+<!-- 3. APPLICATION ARCHITECTURE -->
+<div class="page-break section">
+  <h1>3. Application Architecture</h1>
+
+  <h2>3.1 Overall Structure</h2>
+  <p>
+    The project is a monorepo with two main folders: <code>frontend</code> and <code>backend</code>. The frontend is a single-page application that talks to the backend through REST API calls. The backend connects to a PostgreSQL database using Prisma ORM. Here is a simplified diagram:
+  </p>
+
+  <div class="diagram">
++---------------------+          +---------------------+          +------------------+
+|                     |  HTTP    |                     |  Prisma  |                  |
+|   Frontend (SPA)    | &lt;-----&gt; |   Backend (API)     | &lt;-----&gt; |   PostgreSQL     |
+|                     |  REST    |                     |   ORM    |                  |
+|   React + Vite      |          |   NestJS            |          |   8 Tables       |
+|   Tailwind CSS      |          |   JWT Auth          |          |   Indexes        |
+|   React Query       |          |   Swagger Docs      |          |                  |
+|                     |          |                     |          |                  |
++---------------------+          +---------------------+          +------------------+
+       Port 5173                       Port 3000                     Port 5433
+  </div>
+
+  <p>The frontend runs on port 5173 during development (Vite dev server). The backend runs on port 3000. PostgreSQL is exposed on port 5433 through Docker Compose (we used 5433 instead of the default 5432 to avoid conflicts with any locally installed Postgres).</p>
+
+  <h2>3.2 Backend Modules</h2>
+  <p>
+    NestJS uses a modular architecture, so we split the backend into separate modules. Each module has its own controller (handles HTTP requests), service (business logic), and DTOs (data transfer objects for validation).
+  </p>
+
+  <div class="diagram">
+backend/src/
++-- auth/              # Login, register, JWT tokens, refresh tokens
++-- users/             # User profile (get and update)
++-- transactions/      # CRUD for income and expenses, balance, filtering
++-- categories/        # Default categories + user-created ones
++-- budgets/           # Monthly budgets per category
++-- reports/           # Monthly and yearly reports, PDF/CSV export
++-- currencies/        # List of supported currencies
++-- api-keys/          # Create, revoke, delete API keys
++-- public-api/        # Separate endpoints for external access (v1)
++-- admin/             # Admin-only endpoints (user mgmt, settings)
++-- common/            # Guards, decorators, shared utilities
++-- prisma/            # Prisma service wrapper
+  </div>
+
+  <h2>3.3 Database Schema</h2>
+  <p>We have 8 tables in total. The main ones are User, Transaction, Category, and Budget. The rest handle authentication tokens, API keys, currencies, and system settings.</p>
+
+  <div class="diagram">
++----------+     +-------------+     +------------+
+|   User   |1---*| Transaction |*---1|  Category  |
++----------+     +-------------+     +------------+
+| id (PK)  |     | id (PK)     |     | id (PK)    |
+| email    |     | userId (FK) |     | name       |
+| password |     | categoryId  |     | type       |
+| name     |     | type        |     | icon       |
+| role     |     | amount      |     | color      |
+| language |     | currency    |     | isDefault  |
+| currency |     | description |     | userId(FK) |
+| isBlocked|     | date        |     +------------+
++----------+     +-------------+            |
+     |                                      |
+     |           +----------+               |
+     +--------1--| Budget   |*---------1----+
+     |           +----------+
+     |           | id (PK)  |
+     |           | userId   |    +--------------+    +----------+
+     |           | category |    | RefreshToken |    | Currency |
+     |           | amount   |    +--------------+    +----------+
+     |           | month    |    | id (PK)      |    | id (PK)  |
+     |           | year     |    | userId (FK)  |    | code     |
+     |           +----------+    | token        |    | name     |
+     |                           | expiresAt    |    | symbol   |
+     |           +----------+    +--------------+    | isActive |
+     +--------1--| ApiKey   |                        +----------+
+     |           +----------+
+     |           | id (PK)  |    +----------+
+     |           | userId   |    | Setting  |
+     |           | key      |    +----------+
+     |           | name     |    | id (PK)  |
+     |           | requests |    | key      |
+     |           | isActive |    | value    |
+     |           +----------+    +----------+
+  </div>
+
+  <p>
+    A few things worth noting: all primary keys are UUIDs (not auto-increment integers). The Budget table has a composite unique constraint on userId + categoryId + month + year, which prevents a user from creating two budgets for the same category in the same month. We also added composite indexes on the Transaction table for userId+date and userId+categoryId to speed up filtering and report queries.
+  </p>
+  <p>
+    Categories can be either default (shared across all users, managed by admin) or personal. We handle this with a nullable <code>userId</code> field &mdash; if it is null, the category is a default one.
+  </p>
+</div>
+
+<!-- 3.4 Authentication & 3.5 Public API -->
+<div class="page-break section">
+  <h2>3.4 Authentication Flow</h2>
+  <p>We use JWT tokens for authentication. When a user logs in, the server returns two tokens: an access token (valid for 15 minutes) and a refresh token (valid for 7 days). The refresh token is stored in the database so we can invalidate it on logout.</p>
+
+  <div class="diagram">
+Client                    Backend                   Database
+  |                          |                          |
+  |--- POST /auth/login ---->|                          |
+  |                          |--- Verify credentials -->|
+  |                          |<-- User data ------------|
+  |                          |                          |
+  |                          |--- Generate JWT (15m) ---|
+  |                          |--- Generate Refresh (7d)-|
+  |                          |--- Store refresh token ->|
+  |<-- { accessToken,        |                          |
+  |      refreshToken } -----|                          |
+  |                          |                          |
+  |--- GET /api (Bearer) --->|                          |
+  |                          |--- Validate JWT ---------|
+  |<-- Protected data -------|                          |
+  |                          |                          |
+  |--- POST /auth/refresh -->|                          |
+  |    { refreshToken }      |--- Validate & rotate --->|
+  |<-- New token pair -------|                          |
+  </div>
+
+  <p>On the frontend, we set up an Axios interceptor that catches 401 errors and automatically calls the refresh endpoint to get a new access token. This way the user doesn't get logged out every 15 minutes.</p>
+
+  <p>There are two roles in the system:</p>
+  <table>
+    <tr><th>Role</th><th>What they can do</th></tr>
+    <tr><td><code>USER</code></td><td>Manage their own transactions, categories, budgets, reports, API keys, and profile.</td></tr>
+    <tr><td><code>ADMIN</code></td><td>Everything a regular user can do, plus: manage users (block/unblock/delete), edit default categories, manage currencies, and view platform statistics.</td></tr>
+  </table>
+
+  <p>We implemented this with a <code>RolesGuard</code> and a <code>@Roles()</code> decorator in NestJS. Admin endpoints check for the ADMIN role before processing the request.</p>
+
+  <h2>3.5 Public API</h2>
+  <p>
+    Besides the main API used by the frontend, we also have a separate set of endpoints at <code>/api/v1</code>. These are meant for external use &mdash; for example, if someone wanted to write a mobile app or a script that reads their transactions.
+  </p>
+  <p>
+    This API doesn't use JWT. Instead, users generate API keys in the web interface. Each key starts with <code>bp_</code> and is sent in the <code>x-api-key</code> header. We rate-limit these keys to 100 requests per hour to prevent abuse.
+  </p>
+
+  <p>The public API currently supports these endpoints:</p>
+  <table>
+    <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+    <tr><td><code>GET</code></td><td><code>/api/v1/transactions</code></td><td>Get the user's transactions (with filtering)</td></tr>
+    <tr><td><code>POST</code></td><td><code>/api/v1/transactions</code></td><td>Create a new transaction</td></tr>
+    <tr><td><code>GET</code></td><td><code>/api/v1/categories</code></td><td>Get list of categories</td></tr>
+    <tr><td><code>GET</code></td><td><code>/api/v1/reports/monthly</code></td><td>Get a monthly report</td></tr>
+  </table>
+
+  <p>The Swagger documentation at <code>/api/docs</code> covers both the main API and the public API with examples and schemas.</p>
+</div>
+
+<!-- 4. APPLICATION DESCRIPTION -->
+<div class="page-break section">
+  <h1>4. Application Description</h1>
+
+  <h2>4.1 Main Features</h2>
+
+  <h3>Transactions</h3>
+  <p>
+    This is the core of the app. Users can add transactions with an amount, category, type (income or expense), date, description, and currency. The transaction list shows all entries in a paginated table (20 per page) and you can filter by date range, category, or type. At the top of the page there is a balance summary showing total income, total expenses, and the difference between them.
+  </p>
+
+  <h3>Categories</h3>
+  <p>
+    We have 14 default categories that come pre-loaded with the database seed: 4 for income (Salary, Freelance, Investments, Other Income) and 10 for expenses (Food, Transport, Housing, Utilities, Healthcare, Entertainment, Shopping, Education, Savings, Other). Each category has an emoji icon and a hex color. Users can also create their own categories if the defaults don't cover their needs.
+  </p>
+
+  <h3>Budgets</h3>
+  <p>
+    On the Budgets page, users can set a spending limit for a specific category for a given month. For example, you could set a 500 PLN budget for "Food" in January 2026. The app then shows a progress bar comparing how much was actually spent vs. the limit. If you go over budget, it shows up in red. This makes it easy to see where you might be overspending.
+  </p>
+
+  <h3>Dashboard</h3>
+  <p>
+    The dashboard is the first thing users see after logging in. It has three cards at the top showing income, expenses, and balance for the current period. Below that there is a list of the 5 most recent transactions and two charts: a pie chart for budget distribution and a bar chart showing monthly income vs. expenses.
+  </p>
+
+  <h2>4.2 Admin Panel</h2>
+  <p>
+    Admin users see an extra "Admin Panel" link in the sidebar navigation. The panel has four tabs:
+  </p>
+  <ul>
+    <li><strong>Statistics</strong> &mdash; shows how many users are registered, total number of transactions on the platform, and how many API keys are active.</li>
+    <li><strong>Users</strong> &mdash; a list of all registered users. The admin can block a user (which prevents them from logging in), unblock them, or delete their account entirely.</li>
+    <li><strong>Categories</strong> &mdash; the admin can edit or remove the default categories that are available to everyone.</li>
+    <li><strong>Currencies</strong> &mdash; manage the list of available currencies (enable/disable them, edit names and symbols). We seeded the database with USD, EUR, GBP, PLN, RUB, and UAH.</li>
+  </ul>
+</div>
+
+<!-- 4.3 Multi-language & 4.4 Reports -->
+<div class="page-break section">
+  <h2>4.3 Multi-language Support</h2>
+  <p>
+    The application supports English and Polish. We used the i18next library for this. All text in the UI is pulled from translation files (JSON), so nothing is hardcoded.
+  </p>
+  <p>There are two ways to switch languages:</p>
+  <ul>
+    <li>A quick toggle button with a globe icon in the sidebar &mdash; clicking it switches between English and Polish right away.</li>
+    <li>A dropdown in the Settings page &mdash; this also saves the preference to the user's profile in the database, so the language persists between sessions.</li>
+  </ul>
+  <p>
+    On the first visit, the app tries to detect the browser language automatically using <code>i18next-browser-languagedetector</code>. If the browser language is Polish, the interface shows in Polish by default. Otherwise it falls back to English. We have about 127 translation keys covering everything from button labels to error messages.
+  </p>
+
+  <h2>4.4 Reports</h2>
+  <p>The Reports page has two views:</p>
+
+  <h3>Monthly Report</h3>
+  <p>
+    You pick a month and year, and the app shows a breakdown of all income and expenses for that period. There's a pie chart showing expense distribution by category and a summary table with totals. This is useful for understanding where most of the money went in a given month.
+  </p>
+
+  <h3>Yearly Trend</h3>
+  <p>
+    This one shows all 12 months of a selected year in a bar chart. Each month has two bars &mdash; one for income and one for expenses. It's helpful for spotting patterns, like if spending tends to go up in December or if income drops during summer.
+  </p>
+
+  <h3>Exporting</h3>
+  <p>Both report types can be exported:</p>
+  <ul>
+    <li><strong>PDF</strong> &mdash; generated on the server side using PDFKit. It produces a formatted document with tables that's ready for printing.</li>
+    <li><strong>CSV</strong> &mdash; also generated on the server using json2csv. The CSV file can be opened in Excel or Google Sheets for further analysis.</li>
+  </ul>
+
+  <h2>4.5 API Key Management</h2>
+  <p>
+    Users who want to access their data programmatically can go to the API Keys page and create a key. The system generates a random key with a <code>bp_</code> prefix. The page shows all keys with their status, how many requests were made with each one, and when they were last used. Keys can be revoked (disabled but not deleted) or deleted permanently.
+  </p>
+</div>
+
+<!-- 5. USER INTERFACE -->
+<div class="page-break section">
+  <h1>5. User Interface</h1>
+
+  <h2>5.1 Design Approach</h2>
+  <p>
+    We used Tailwind CSS for styling, which let us build the UI quickly without writing separate CSS files. The overall look is relatively minimal &mdash; white cards on a light gray background with indigo (#4F46E5) as the accent color for buttons and active navigation items. We chose this color scheme because it felt clean and appropriate for a financial app.
+  </p>
+  <p>
+    We defined a few reusable CSS component classes (<code>.btn-primary</code>, <code>.btn-secondary</code>, <code>.btn-danger</code>, <code>.input-field</code>, <code>.card</code>) to keep things consistent across pages. All interactive elements have ARIA labels for accessibility, and we used semantic HTML where possible.
+  </p>
+
+  <h2>5.2 Screen Descriptions</h2>
+
+  <h3>Login and Registration</h3>
+  <p>
+    Simple centered card with email and password fields. There is a link at the bottom to switch between "Sign in" and "Create account". If the credentials are wrong, an error message appears below the form. After logging in, you get redirected to the dashboard.
+  </p>
+
+  <h3>Dashboard</h3>
+  <p>
+    The top section has three cards side by side (on desktop) showing income, expenses, and total balance. Below that, the page splits into two columns: recent transactions on one side and charts on the other. On mobile, everything stacks into a single column.
+  </p>
+
+  <h3>Transactions Page</h3>
+  <p>
+    A table with all transactions. Above the table there are filters for date range, category, and transaction type. The "Add Transaction" button opens a form where you fill in the details. Each row in the table shows the date, description, category with its icon, amount, and edit/delete buttons. On small screens, some columns like "category" get hidden to save space, but the data is still accessible through the edit form.
+  </p>
+
+  <h3>Budgets Page</h3>
+  <p>
+    Shows budget cards, each with a progress bar. Green means you're within the limit, yellow means you're getting close, red means you went over. You can click "Set Budget" to create a new one or edit an existing entry.
+  </p>
+
+  <h3>Reports Page</h3>
+  <p>
+    Tabs for "Monthly Report" and "Yearly Trend" at the top. Below the tabs, there are month/year selectors and the charts. Export buttons for PDF and CSV sit next to the chart.
+  </p>
+
+  <h3>Admin Panel</h3>
+  <p>
+    Only visible if you're logged in as an admin. Has tabs: Statistics (three metric cards), Users (table with block/unblock/delete buttons), Categories (editable list of defaults), and Currencies (toggle active/inactive).
+  </p>
+
+  <h2>5.3 Responsive Layout</h2>
+  <p>We targeted three main screen sizes:</p>
+  <table>
+    <tr><th>Screen</th><th>Width</th><th>What changes</th></tr>
+    <tr><td>Mobile</td><td>&lt; 640px</td><td>Sidebar becomes a hamburger menu, cards stack vertically, some table columns are hidden, forms take full width.</td></tr>
+    <tr><td>Tablet</td><td>640 &ndash; 1024px</td><td>Two-column grid for cards, sidebar opens as an overlay.</td></tr>
+    <tr><td>Desktop</td><td>&gt; 1024px</td><td>Sidebar is always visible, three-column grid for dashboard cards, charts displayed side by side.</td></tr>
+  </table>
+  <p>
+    Tailwind's responsive prefixes (<code>sm:</code>, <code>md:</code>, <code>lg:</code>) made this pretty easy to implement. The sidebar has a slide-in animation on mobile with a dark backdrop that closes it when tapped.
+  </p>
+</div>
+
+<!-- 6. API DOCUMENTATION -->
+<div class="page-break section">
+  <h1>6. API Documentation</h1>
+
+  <p>
+    We used <code>@nestjs/swagger</code> to auto-generate API documentation. It's available at <code>/api/docs</code> when the server is running. The Swagger UI lets you see all endpoints, try them out, and check the request/response schemas.
+  </p>
+
+  <h2>6.1 Endpoints Overview</h2>
+
+  <table>
+    <tr><th>Module</th><th>Endpoints</th><th>Auth type</th></tr>
+    <tr><td>Auth</td><td><code>POST /auth/register, /login, /refresh, /logout</code></td><td>Public (register, login) / JWT (logout)</td></tr>
+    <tr><td>Users</td><td><code>GET/PUT /users/me</code></td><td>JWT</td></tr>
+    <tr><td>Transactions</td><td><code>GET/POST/PUT/DELETE /transactions</code></td><td>JWT</td></tr>
+    <tr><td>Categories</td><td><code>GET/POST/PUT/DELETE /categories</code></td><td>JWT</td></tr>
+    <tr><td>Budgets</td><td><code>GET/POST/PUT/DELETE /budgets</code></td><td>JWT</td></tr>
+    <tr><td>Reports</td><td><code>GET /reports/monthly, /yearly-trend</code></td><td>JWT</td></tr>
+    <tr><td>API Keys</td><td><code>GET/POST/PUT/DELETE /api-keys</code></td><td>JWT</td></tr>
+    <tr><td>Currencies</td><td><code>GET /currencies</code></td><td>Public</td></tr>
+    <tr><td>Admin</td><td><code>GET/PUT/DELETE /admin/*</code></td><td>JWT (Admin only)</td></tr>
+    <tr><td>Public API v1</td><td><code>GET/POST /api/v1/*</code></td><td>API Key</td></tr>
+  </table>
+
+  <h2>6.2 How Authentication Works for the API</h2>
+  <table>
+    <tr><th>Method</th><th>Header</th><th>Used by</th></tr>
+    <tr><td>JWT Bearer token</td><td><code>Authorization: Bearer &lt;token&gt;</code></td><td>The frontend (React app)</td></tr>
+    <tr><td>API Key</td><td><code>x-api-key: bp_&lt;key&gt;</code></td><td>Third-party apps, scripts</td></tr>
+  </table>
+
+  <h2>6.3 Rate Limits</h2>
+  <p>We set up rate limiting using <code>@nestjs/throttler</code>:</p>
+  <ul>
+    <li>General API: 60 requests per minute per user.</li>
+    <li>Public API (via API key): 100 requests per hour per key.</li>
+  </ul>
+  <p>If the limit is exceeded, the server returns a 429 (Too Many Requests) response.</p>
+</div>
+
+<!-- 7. TESTING -->
+<div class="page-break section">
+  <h1>7. Testing</h1>
+
+  <p>
+    We wrote unit tests for the main backend services using Jest. The tests use a mocked Prisma client, so they don't need an actual database to run. This keeps them fast and isolated.
+  </p>
+
+  <h2>7.1 What We Tested</h2>
+  <table>
+    <tr><th>Service</th><th># of tests</th><th>What's covered</th></tr>
+    <tr><td>TransactionsService</td><td>7</td><td>Creating, reading, updating, deleting transactions. Also: balance calculation, recent transactions query, pagination with filters, and checking that users can't access other users' data.</td></tr>
+    <tr><td>ApiKeysService</td><td>5</td><td>Creating a key (checking it gets the bp_ prefix), listing keys, revoking a key, deleting a key, and permission checks.</td></tr>
+    <tr><td>BudgetsService</td><td>5</td><td>CRUD operations, getting budget status with spending amounts, making sure duplicate budgets are rejected.</td></tr>
+    <tr><td>ReportsService</td><td>4</td><td>Monthly report with category aggregation, yearly trend data, PDF generation, CSV export.</td></tr>
+  </table>
+
+  <h2>7.2 How to Run</h2>
+  <div class="code-block"># Run all tests
+yarn test
+
+# Run with coverage report
+yarn test:cov
+
+# Watch mode (re-runs on file changes)
+yarn test:watch</div>
+
+  <p>
+    The tests focus on business logic in the service layer. We mock the Prisma client using a shared mock singleton in <code>src/common/test/prisma-mock.ts</code>, which makes it easy to control what the "database" returns in each test case. We also test authorization: for example, if User A tries to delete a transaction that belongs to User B, the service should throw a 404.
+  </p>
+</div>
+
+<!-- 8. SUMMARY -->
+<div class="page-break section">
+  <h1>8. Summary</h1>
+
+  <p>
+    We built Budget Planner as a full-stack web application with three layers: a React SPA on the frontend, a NestJS REST API on the backend, and a PostgreSQL database. The app covers the main use case of tracking personal income and expenses, with extra features like budget limits, financial reports with charts, and data export.
+  </p>
+
+  <p>
+    On the security side, we implemented JWT authentication with refresh tokens, role-based access control with two roles (user and admin), and password hashing with bcrypt. The admin panel lets platform administrators manage users, categories, and currencies.
+  </p>
+
+  <p>
+    For external integrations, the app has a public API at <code>/api/v1</code> that uses API key authentication and is documented via Swagger. This allows other developers or apps to interact with the platform without using the web UI.
+  </p>
+
+  <p>
+    The interface supports two languages (English and Polish), works on different screen sizes thanks to Tailwind's responsive utilities, and follows accessibility practices with semantic HTML and ARIA attributes.
+  </p>
+
+  <p>
+    We covered the core business logic with around 21 unit tests using Jest with mocked database calls. The tests check things like transaction CRUD, budget calculations, report generation, and API key management.
+  </p>
+
+  <p>
+    Overall, the project gave us practical experience with a modern full-stack setup and the kind of decisions that come with building a real application &mdash; things like choosing between JWT and session-based auth, structuring a NestJS project with multiple modules, handling token refresh on the frontend, and making the UI responsive without a component library.
+  </p>
+</div>
+
+</body>
+</html>
