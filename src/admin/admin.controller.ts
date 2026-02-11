@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   Put,
   Delete,
   Param,
@@ -59,6 +60,12 @@ export class AdminController {
     return this.adminService.deleteUser(id);
   }
 
+  @Post('users')
+  @ApiOperation({ summary: 'Create new user' })
+  createUser(@Body() dto: { email: string; password: string; name?: string; role?: 'USER' | 'ADMIN' }) {
+    return this.adminService.createUser(dto);
+  }
+
   // Default categories management
   @Get('categories')
   @ApiOperation({ summary: 'Get default categories' })
@@ -79,6 +86,12 @@ export class AdminController {
   @ApiOperation({ summary: 'Delete default category' })
   deleteDefaultCategory(@Param('id') id: string) {
     return this.adminService.deleteDefaultCategory(id);
+  }
+
+  @Post('categories')
+  @ApiOperation({ summary: 'Create default category' })
+  createDefaultCategory(@Body() dto: CreateDefaultCategoryDto) {
+    return this.adminService.createDefaultCategory(dto);
   }
 
   // Currency management
